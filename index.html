@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>JHIM Images AI Studio</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1e3a8a">
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("service-worker.js");
+  });
+}
+</script>
+
+</head>
+<body style="margin:0; font-family:Arial, sans-serif; background:#0b1220; color:white; display:flex; align-items:center; justify-content:center; height:100vh; text-align:center;">
+
+<div>
+<h1>جاري تحميل تطبيق JHIM AI Studio …</h1>
+<p>إذا لم يظهر زر التثبيت، افتح الموقع في Chrome</p>
+<a href="https://jhim-images-ai-studio-9af94b82.base44.app/" target="_blank" style="color:#4da3ff;">فتح الموقع مباشرة</a>
+</div>
+
+</body>
+</html>
