@@ -4,26 +4,39 @@
 <meta charset="UTF-8">
 <title>JHIM Images AI Studio</title>
 
-<!-- PWA -->
-<link rel="manifest" href="manifest.json">
+<!-- PWA مضمّن بالكامل -->
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiSkhJTSBJbWFnZXMgQUkgU3R1ZGlvIiwic2hvcnRfbmFtZSI6IkpISU0gQUkiLCJzdGFydF91cmwiOiIvIiwgImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwYjEyMjAiLCJ0aGVtZV9jb2xvciI6IiMxZTNhOGEiLCJvcmllbnRhdGlvbiI6InBvcnRyYWl0IiwiaWNvbnMiOlt7InNyYyI6IiIsInNpemVzIjoiMTkyeDE5MiIsInR5cGUiOiJpbWFnZS9wbmcifSx7InNyYyI6IiIsInNpemVzIjoiNTIweDUyMCIsInR5cGUiOiJpbWFnZS9wbmcifV19">
+
 <meta name="theme-color" content="#1e3a8a">
 
 <script>
+// Service Worker مضمّن داخلي لتجنب أي رفع ملفات
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("service-worker.js");
+    navigator.serviceWorker.register(
+      URL.createObjectURL(
+        new Blob([`
+          self.addEventListener("install", e => self.skipWaiting());
+          self.addEventListener("activate", e => self.clients.claim());
+          self.addEventListener("fetch", e => {
+            e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+          });
+        `], {type: 'application/javascript'})
+      )
+    );
   });
 }
 </script>
 
 </head>
-<body style="margin:0; font-family:Arial, sans-serif; background:#0b1220; color:white; display:flex; align-items:center; justify-content:center; height:100vh; text-align:center;">
+<body style="margin:0; font-family:Arial, sans-serif; height:100vh;">
 
-<div>
-<h1>جاري تحميل تطبيق JHIM AI Studio …</h1>
-<p>إذا لم يظهر زر التثبيت، افتح الموقع في Chrome</p>
-<a href="https://jhim-images-ai-studio-9af94b82.base44.app/" target="_blank" style="color:#4da3ff;">فتح الموقع مباشرة</a>
-</div>
+<!-- iFrame لموقعك على Base44 -->
+<iframe src="https://jhim-images-ai-studio-9af94b82.base44.app/" 
+        style="width:100%; height:100%; border:none;" 
+        allowfullscreen
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
+</iframe>
 
 </body>
 </html>
